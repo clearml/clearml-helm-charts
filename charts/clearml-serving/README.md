@@ -1,6 +1,6 @@
 # ClearML Kubernetes Serving
 
-![Version: 1.5.8](https://img.shields.io/badge/Version-1.5.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
+![Version: 1.5.9](https://img.shields.io/badge/Version-1.5.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
 
 ClearML Serving Helm Chart
 
@@ -14,7 +14,7 @@ ClearML Serving Helm Chart
 
 ## Introduction
 
-The **clearml-serving** is the Kubernetes serving for for [ClearML](https://github.com/allegroai/clearml-serving).
+The **clearml-serving** is the Kubernetes serving for for [ClearML](https://github.com/clearml/clearml-serving).
 It allows you to serve models on a Kubernetes cluster.
 
 ## Add to local Helm repository
@@ -22,7 +22,7 @@ It allows you to serve models on a Kubernetes cluster.
 To add this chart to your local Helm repository:
 
 ```
-helm repo add allegroai https://allegroai.github.io/clearml-helm-charts
+helm repo add clearml https://clearml.github.io/clearml-helm-charts
 ```
 
 # Upgrading Chart
@@ -33,19 +33,19 @@ Updating to latest version of this chart can be done in two steps:
 
 ```
 helm repo update
-helm upgrade clearml-serving allegroai/clearml-serving
+helm upgrade clearml-serving clearml/clearml-serving
 ```
 
 Changing values on existing installation can be done with:
 
 ```
-helm upgrade clearml-serving allegroai/clearml-serving --version <CURRENT CHART VERSION> -f custom_values.yaml
+helm upgrade clearml-serving clearml/clearml-serving --version <CURRENT CHART VERSION> -f custom_values.yaml
 ```
 
 ## Source Code
 
-* <https://github.com/allegroai/clearml-helm-charts>
-* <https://github.com/allegroai/clearml>
+* <https://github.com/clearml/clearml-helm-charts>
+* <https://github.com/clearml/clearml>
 
 ## Requirements
 

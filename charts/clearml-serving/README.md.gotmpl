@@ -11,7 +11,7 @@
 
 ## Introduction
 
-The **clearml-serving** is the Kubernetes serving for for [ClearML](https://github.com/allegroai/clearml-serving).
+The **clearml-serving** is the Kubernetes serving for for [ClearML](https://github.com/clearml/clearml-serving).
 It allows you to serve models on a Kubernetes cluster.
 
 ## Add to local Helm repository
@@ -19,7 +19,7 @@ It allows you to serve models on a Kubernetes cluster.
 To add this chart to your local Helm repository:
 
 ```
-helm repo add allegroai https://allegroai.github.io/clearml-helm-charts
+helm repo add clearml https://clearml.github.io/clearml-helm-charts
 ```
 
 # Upgrading Chart
@@ -30,13 +30,13 @@ Updating to latest version of this chart can be done in two steps:
 
 ```
 helm repo update
-helm upgrade clearml-serving allegroai/clearml-serving
+helm upgrade clearml-serving clearml/clearml-serving
 ```
 
 Changing values on existing installation can be done with:
 
 ```
-helm upgrade clearml-serving allegroai/clearml-serving --version <CURRENT CHART VERSION> -f custom_values.yaml
+helm upgrade clearml-serving clearml/clearml-serving --version <CURRENT CHART VERSION> -f custom_values.yaml
 ```
 
 {{ template "chart.sourcesSection" . }}

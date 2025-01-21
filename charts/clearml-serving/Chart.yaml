@@ -2,14 +2,14 @@ apiVersion: v2
 name: clearml-serving
 description: ClearML Serving Helm Chart
 type: application
-version: "1.5.8"
+version: "1.5.9"
 appVersion: "1.3.0"
 kubeVersion: ">= 1.21.0-0 < 1.32.0-0"
 home: https://clear.ml
-icon: https://raw.githubusercontent.com/allegroai/clearml/master/docs/clearml-logo.svg
+icon: https://raw.githubusercontent.com/clearml/clearml/master/docs/clearml-logo.svg
 sources:
-  - https://github.com/allegroai/clearml-helm-charts
-  - https://github.com/allegroai/clearml
+  - https://github.com/clearml/clearml-helm-charts
+  - https://github.com/clearml/clearml
 maintainers:
   - name: filippo-clearml
     url: https://github.com/filippo-clearml
@@ -34,4 +34,4 @@ dependencies:
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: Triton deployment tolerations placement fix
+      description: ClearML org rename
