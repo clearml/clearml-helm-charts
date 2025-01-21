@@ -1,6 +1,6 @@
 # ClearML Kubernetes Agent
 
-![Version: 5.3.0](https://img.shields.io/badge/Version-5.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
+![Version: 5.3.1](https://img.shields.io/badge/Version-5.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.24](https://img.shields.io/badge/AppVersion-1.24-informational?style=flat-square)
 
 MLOps platform Task running agent
 
@@ -14,7 +14,7 @@ MLOps platform Task running agent
 
 ## Introduction
 
-The **clearml-agent** is the Kubernetes agent for for [ClearML](https://github.com/allegroai/clearml).
+The **clearml-agent** is the Kubernetes agent for for [ClearML](https://github.com/clearml/clearml).
 It allows you to schedule distributed experiments on a Kubernetes cluster.
 
 ## Add to local Helm repository
@@ -22,7 +22,7 @@ It allows you to schedule distributed experiments on a Kubernetes cluster.
 To add this chart to your local Helm repository:
 
 ```
-helm repo add allegroai https://allegroai.github.io/clearml-helm-charts
+helm repo add clearml https://clearml.github.io/clearml-helm-charts
 ```
 
 # Upgrading Chart
@@ -33,13 +33,13 @@ Updating to latest version of this chart can be done in two steps:
 
 ```
 helm repo update
-helm upgrade clearml-agent allegroai/clearml-agent
+helm upgrade clearml-agent clearml/clearml-agent
 ```
 
 Changing values on existing installation can be done with:
 
 ```
-helm upgrade clearml-agent allegroai/clearml-agent --version <CURRENT CHART VERSION> -f custom_values.yaml
+helm upgrade clearml-agent clearml/clearml-agent --version <CURRENT CHART VERSION> -f custom_values.yaml
 ```
 
 ### Major upgrade from 3.* to 4.*
@@ -50,8 +50,8 @@ Before issuing helm upgrade:
 
 ## Source Code
 
-* <https://github.com/allegroai/clearml-helm-charts>
-* <https://github.com/allegroai/clearml>
+* <https://github.com/clearml/clearml-helm-charts>
+* <https://github.com/clearml/clearml>
 
 ## Requirements
 
@@ -61,7 +61,7 @@ Kubernetes: `>= 1.21.0-0 < 1.32.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| agentk8sglue | object | `{"additionalClusterRoleBindings":[],"additionalRoleBindings":[],"affinity":{},"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"affinity":{},"annotations":{},"containerSecurityContext":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"podSecurityContext":{},"priorityClassName":"","resources":{},"schedulerName":"","tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerSecurityContext":{},"createQueueIfNotExists":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"registry":"","repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"initContainers":{"resources":{}},"labels":{},"nodeSelector":{},"podSecurityContext":{},"queue":"default","replicaCount":1,"resources":{},"serviceAccountAnnotations":{},"serviceExistingAccountName":"","tolerations":[],"volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue |
+| agentk8sglue | object | `{"additionalClusterRoleBindings":[],"additionalRoleBindings":[],"affinity":{},"annotations":{},"apiServerUrlReference":"https://api.clear.ml","basePodTemplate":{"affinity":{},"annotations":{},"containerSecurityContext":{},"env":[],"fileMounts":[],"hostAliases":[],"initContainers":[],"labels":{},"nodeSelector":{},"podSecurityContext":{},"priorityClassName":"","resources":{},"schedulerName":"","tolerations":[],"volumeMounts":[],"volumes":[]},"clearmlcheckCertificate":true,"containerSecurityContext":{},"createQueueIfNotExists":false,"defaultContainerImage":"ubuntu:18.04","extraEnvs":[],"fileMounts":[],"fileServerUrlReference":"https://files.clear.ml","image":{"registry":"","repository":"allegroai/clearml-agent-k8s-base","tag":"1.24-21"},"initContainers":{"resources":{}},"labels":{},"nodeSelector":{},"podSecurityContext":{},"queue":"default","replicaCount":1,"resources":{},"serviceAccountAnnotations":{},"serviceExistingAccountName":"","tolerations":[],"volumeMounts":[],"volumes":[],"webServerUrlReference":"https://app.clear.ml"}` | This agent will spawn queued experiments in new pods, a good use case is to combine this with GPU autoscaling nodes. https://github.com/clearml/clearml-agent/tree/master/docker/k8s-glue |
 | agentk8sglue.additionalClusterRoleBindings | list | `[]` | additional existing ClusterRoleBindings |
 | agentk8sglue.additionalRoleBindings | list | `[]` | additional existing RoleBindings |
 | agentk8sglue.affinity | object | `{}` | affinity setup for Agent pod (example in values.yaml comments) |

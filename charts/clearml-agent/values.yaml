@@ -46,7 +46,7 @@ clearml:
 
 # -- This agent will spawn queued experiments in new pods, a good use case is to combine this with
 # GPU autoscaling nodes.
-# https://github.com/allegroai/clearml-agent/tree/master/docker/k8s-glue
+# https://github.com/clearml/clearml-agent/tree/master/docker/k8s-glue
 agentk8sglue:
   # -- Glue Agent image configuration
   image:
