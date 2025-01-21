@@ -2,11 +2,11 @@
 
 ##  Auto-Magical Experiment Manager & Version Control for AI
 
-Helm charts provided by [Allegro AI](https://clear.ml), ready to launch on Kubernetes using [Kubernetes Helm](https://github.com/helm/helm).
+Helm charts provided by [ClearML](https://clear.ml), ready to launch on Kubernetes using [Kubernetes Helm](https://github.com/helm/helm).
 
 ## Introduction
 
-The **clearml-server** is the backend service infrastructure for [ClearML](https://github.com/allegroai/clearml).
+The **clearml-server** is the backend service infrastructure for [ClearML](https://github.com/clearml/clearml).
 It allows multiple users to collaborate and manage their experiments.
 By default, **ClearML** is set up to work with the **ClearML** demo server, which is open to anyone and resets periodically. 
 In order to host your own server, you will need to install **clearml-server** and point **ClearML** to it.
@@ -23,11 +23,11 @@ Use this repository to deploy **clearml-server** on Kubernetes clusters.
 
 ## Provided in this repository
 
-### [ClearML server chart](https://github.com/allegroai/clearml-helm-charts/tree/main/charts/clearml)
+### [ClearML server chart](https://github.com/clearml/clearml-helm-charts/tree/main/charts/clearml)
 
-### [ClearML agent chart](https://github.com/allegroai/clearml-helm-charts/tree/main/charts/clearml-agent)
+### [ClearML agent chart](https://github.com/clearml/clearml-helm-charts/tree/main/charts/clearml-agent)
 
-### [ClearML serving chart](https://github.com/allegroai/clearml-helm-charts/tree/main/charts/clearml-serving)
+### [ClearML serving chart](https://github.com/clearml/clearml-helm-charts/tree/main/charts/clearml-serving)
 
 ## Who We Are
 
@@ -54,13 +54,13 @@ See more information in the [official documentation](https://clear.ml/docs/lates
 
 If you have any questions, post on our [Slack Channel](https://joinslack.clear.ml), or tag your questions on [stackoverflow](https://stackoverflow.com/questions/tagged/clearml) with '**[clearml](https://stackoverflow.com/questions/tagged/clearml)**' tag (*previously [trains](https://stackoverflow.com/questions/tagged/trains) tag*).
 
-For feature requests or bug reports, please use [GitHub issues](https://github.com/allegroai/clearml-helm-charts/issues).
+For feature requests or bug reports, please use [GitHub Issues](https://github.com/clearml/clearml-helm-charts/issues).
 
 Additionally, you can always find us at *support@clear.ml*
 
 ## Contributing
 
-**PRs are always welcomed** :heart: See more details in the ClearML [Guidelines for Contributing](https://github.com/allegroai/clearml-helm-charts/blob/main/CONTRIBUTING.md).
+**PRs are always welcomed** :heart: See more details in the ClearML [Guidelines for Contributing](https://github.com/clearml/clearml-helm-charts/blob/main/CONTRIBUTING.md).
 
 
 _May the force (and the goddess of learning rates) be with you!_

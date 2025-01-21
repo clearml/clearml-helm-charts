@@ -2,8 +2,8 @@
 
 
 **Checklist**
-- [ ] Reviewed the [`CONTRIBUTING.md`](https://github.com/allegroai/clearml-helm-charts/blob/main/CONTRIBUTING.md#pull-requests) guide (**required**)
-- [ ] Verify the work you plan to merge addresses an existing [issue](https://github.com/allegroai/clearml-helm-charts/issues) (If not, open a new one) (**required**)
+- [ ] Reviewed the [`CONTRIBUTING.md`](https://github.com/clearml/clearml-helm-charts/blob/main/CONTRIBUTING.md#pull-requests) guide (**required**)
+- [ ] Verify the work you plan to merge addresses an existing [issue](https://github.com/clearml/clearml-helm-charts/issues) (If not, open a new one) (**required**)
 - [ ] Check your branch with `helm lint` (**required**)
 - [ ] Update `version` in `Chart.yaml` according [semver](https://semver.org/) rules (**required**)
 - [ ] Substitute `annotations` section in `Chart.yaml` annotating implementations (useful for Artifecthub changelog) (**required**)
