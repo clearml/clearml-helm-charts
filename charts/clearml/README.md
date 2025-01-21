@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 7.14.1](https://img.shields.io/badge/Version-7.14.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0](https://img.shields.io/badge/AppVersion-2.0-informational?style=flat-square)
+![Version: 7.14.2](https://img.shields.io/badge/Version-7.14.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0](https://img.shields.io/badge/AppVersion-2.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -14,7 +14,7 @@ MLOps platform
 
 ## Introduction
 
-The **clearml-server** is the backend service infrastructure for [ClearML](https://github.com/allegroai/clearml).
+The **clearml-server** is the backend service infrastructure for [ClearML](https://github.com/clearml/clearml).
 It allows multiple users to collaborate and manage their experiments.
 
 **clearml-server** contains the following components:
@@ -30,7 +30,7 @@ It allows multiple users to collaborate and manage their experiments.
 To add this chart to your local Helm repository:
 
 ```
-helm repo add allegroai https://allegroai.github.io/clearml-helm-charts
+helm repo add clearml https://clearml.github.io/clearml-helm-charts
 ```
 
 ## Local environment
@@ -68,7 +68,7 @@ nodes:
     containerPath: /var/local-path-provisioner
 EOF
 
-helm install clearml allegroai/clearml
+helm install clearml clearml/clearml
 ```
 
 After deployment, the services will be exposed on localhost on the following ports:
@@ -96,7 +96,7 @@ Just pointing the domain records to the IP where ingress controller is respondin
 A production ready cluster should also have some different configuration like the one proposed in `values-production.yaml` that can be applied with:
 
 ```
-helm install clearml allegroai/clearml -f values-production.yaml
+helm install clearml clearml/clearml -f values-production.yaml
 ```
 
 ## Upgrades/ Values upgrades
@@ -105,13 +105,13 @@ Updating to latest version of this chart can be done in two steps:
 
 ```
 helm repo update
-helm upgrade clearml allegroai/clearml
+helm upgrade clearml clearml/clearml
 ```
 
 Changing values on existing installation can be done with:
 
 ```
-helm upgrade clearml allegroai/clearml --version <CURRENT CHART VERSION> -f custom_values.yaml
+helm upgrade clearml clearml/clearml --version <CURRENT CHART VERSION> -f custom_values.yaml
 ```
 
 Please note: updating values only should always be done setting explicit chart version to avoid a possible chart update.
@@ -132,12 +132,12 @@ You can also configure the **clearml-server** for:
 * fixed users (users with credentials)
 * non-responsive experiment watchdog settings
 
-For detailed instructions, see the [Optional Configuration](https://github.com/allegroai/clearml-server#optional-configuration) section in the **clearml-server** repository README file.
+For detailed instructions, see the [Optional Configuration](https://github.com/clearml/clearml-server#optional-configuration) section in the **clearml-server** repository README file.
 
 ## Source Code
 
-* <https://github.com/allegroai/clearml-helm-charts>
-* <https://github.com/allegroai/clearml>
+* <https://github.com/clearml/clearml-helm-charts>
+* <https://github.com/clearml/clearml>
 
 ## Requirements
 
