@@ -27,6 +27,9 @@ data:
       serviceAccountName: {{ include "clearmlAgent.serviceAccountName" $ }}
       securityContext:
         {{ toYaml .Values.agentk8sglue.basePodTemplate.podSecurityContext | nindent 8 }}
+      {{- if .Values.agentk8sglue.basePodTemplate.schedulerName }}
+      schedulerName: {{ .Values.agentk8sglue.basePodTemplate.schedulerName }}
+      {{- end }}
       priorityClassName: {{ .Values.agentk8sglue.basePodTemplate.priorityClassName }}
       initContainers:
         {{- toYaml .Values.agentk8sglue.basePodTemplate.initContainers | nindent 8 }}
