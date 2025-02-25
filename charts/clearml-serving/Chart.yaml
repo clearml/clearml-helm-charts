@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml-serving
 description: ClearML Serving Helm Chart
 type: application
-version: "1.5.9"
+version: "1.5.10"
 appVersion: "1.3.0"
 kubeVersion: ">= 1.21.0-0 < 1.33.0-0"
 home: https://clear.ml
