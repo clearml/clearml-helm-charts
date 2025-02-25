@@ -2,9 +2,9 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "7.14.2"
+version: "7.14.3"
 appVersion: "2.0"
-kubeVersion: ">= 1.21.0-0 < 1.32.0-0"
+kubeVersion: ">= 1.21.0-0 < 1.33.0-0"
 home: https://clear.ml
 icon: https://raw.githubusercontent.com/clearml/clearml/master/docs/clearml-logo.svg
 sources:
@@ -32,5 +32,5 @@ dependencies:
     condition: elasticsearch.enabled
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "ClearML org rename"
+    - kind: changed
+      description: "Support kubernetes 1.32"
