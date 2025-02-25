@@ -4410,6 +4410,34 @@ entries:
   clearml-agent:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Support kubernetes 1.32"
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2025-02-25T10:28:30.228119223Z"
+    description: MLOps platform Task running agent
+    digest: fed8e8fa905a9b1b9402767a8f65a8ac3c39f93bbc02658987af9f887e963167
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/clearml/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0 < 1.33.0-0'
+    maintainers:
+    - name: filippo-clearml
+      url: https://github.com/filippo-clearml
+    name: clearml-agent
+    sources:
+    - https://github.com/clearml/clearml-helm-charts
+    - https://github.com/clearml/clearml
+    type: application
+    urls:
+    - https://github.com/clearml/clearml-helm-charts/releases/download/clearml-agent-5.3.2/clearml-agent-5.3.2.tgz
+    version: 5.3.2
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "ClearML org rename"
     apiVersion: v2
@@ -6869,4 +6897,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-21T16:05:01.822035425Z"
+generated: "2025-02-25T10:28:30.228546599Z"
