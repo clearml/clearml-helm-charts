@@ -5869,6 +5869,47 @@ entries:
   clearml-serving:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: Support kubernetes 1.32
+    apiVersion: v2
+    appVersion: 1.3.0
+    created: "2025-02-25T10:31:51.436257769Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 21.4.0
+    - condition: prometheus.enabled
+      name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 19.7.2
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 6.52.3
+    description: ClearML Serving Helm Chart
+    digest: ae2233d12b5cba22d0f94f7d1cd13292060b5f7ee864315c3cb1208ea1db9080
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/clearml/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - model serving
+    kubeVersion: '>= 1.21.0-0 < 1.33.0-0'
+    maintainers:
+    - name: filippo-clearml
+      url: https://github.com/filippo-clearml
+    name: clearml-serving
+    sources:
+    - https://github.com/clearml/clearml-helm-charts
+    - https://github.com/clearml/clearml
+    type: application
+    urls:
+    - https://github.com/clearml/clearml-helm-charts/releases/download/clearml-serving-1.5.10/clearml-serving-1.5.10.tgz
+    version: 1.5.10
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: ClearML org rename
     apiVersion: v2
@@ -6897,4 +6938,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-25T10:28:30.228546599Z"
+generated: "2025-02-25T10:31:51.437181632Z"
