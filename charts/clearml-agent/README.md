@@ -55,7 +55,7 @@ Before issuing helm upgrade:
 
 ## Requirements
 
-Kubernetes: `>= 1.21.0-0 < 1.32.0-0`
+Kubernetes: `>= 1.21.0-0 < 1.33.0-0`
 
 ## Values
 
