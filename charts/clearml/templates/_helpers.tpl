@@ -173,7 +173,7 @@ compose file url
 {{- end }}
 {{- printf "%s%s%s" $protocol "://" .Values.fileserver.ingress.hostName }}
 {{- else }}
-{{- printf "%s%s%s%s" "http://" (include "fileserver.referenceName" .) ":" .Values.fileserver.service.port }}
+{{- printf "%s%s%s%s" "http://" (include "fileserver.referenceName" .) ":" ( .Values.fileserver.service.port | toString ) }}
 {{- end }}
 {{- end }}
 
