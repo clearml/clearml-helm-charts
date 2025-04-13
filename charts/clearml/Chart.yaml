@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "7.14.4"
+version: "7.14.5"
 appVersion: "2.0"
 kubeVersion: ">= 1.21.0-0 < 1.33.0-0"
 home: https://clear.ml
@@ -32,5 +32,5 @@ dependencies:
     condition: elasticsearch.enabled
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "casted port to string before concatenation"
+    - kind: added
+      description: "Generate default random secrets for clearml-conf if values are not provided"
