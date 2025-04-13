@@ -26,24 +26,24 @@ clearml:
   cookieDomain: ""
   # -- Company name
   defaultCompany: "d1bd92a3b039400cbafc60a7a5b1e52b"
-  # -- Api Server basic auth key
-  apiserverKey: GGS9F4M6XB2DXJ5AFT9F
-  # -- Api Server basic auth secret
-  apiserverSecret: 2oGujVFhPfaozhpuz2GzQfA5OyxmMsR3WVJpsCR5hrgHFs20PO
-  # -- File Server basic auth key
-  fileserverKey: XXCRJ123CEE2KSQ068WO
-  # -- File Server basic auth secret
-  fileserverSecret: YIy8EVAC7QCT4FtgitxAQGyW7xRHDZ4jpYlTE7HKiscpORl1hG
+  # -- Api Server basic auth key (will be randomly generated if empty)
+  apiserverKey: ""
+  # -- Api Server basic auth secret (will be randomly generated if empty)
+  apiserverSecret: ""
+  # -- File Server basic auth key (will be randomly generated if empty)
+  fileserverKey: ""
+  # -- File Server basic auth secret (will be randomly generated if empty)
+  fileserverSecret: ""
   # -- Readiness probe basic auth key
   readinessprobeKey: GK4PRTVT3706T25K6BA1
   # -- Readiness probe basic auth secret
   readinessprobeSecret: ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2
-  # -- Secure Auth secret
-  secureAuthTokenSecret: ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2
-  # -- Test Server basic auth key
-  testUserKey: "ENP39EQM4SLACGD5FXB7"
-  # -- Test File Server basic auth secret
-  testUserSecret: "lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"
+  # -- Secure Auth secret (will be randomly generated if empty)
+  secureAuthTokenSecret: ""
+  # -- Test Server basic auth key (will be randomly generated if empty)
+  testUserKey: ""
+  # -- Test File Server basic auth secret (will be randomly generated if empty)
+  testUserSecret: ""
   # -- Override the API Urls displayed when showing an example of the SDK's clearml.conf configuration
   clientConfigurationApiUrl: ""
   # -- Override the Files Urls displayed when showing an example of the SDK's clearml.conf configuration
