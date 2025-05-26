@@ -2,9 +2,9 @@ apiVersion: v2
 name: clearml-agent
 description: MLOps platform Task running agent
 type: application
-version: "5.3.2"
+version: "5.3.3"
 appVersion: "1.24"
-kubeVersion: ">= 1.21.0-0 < 1.33.0-0"
+kubeVersion: ">= 1.21.0-0"
 home: https://clear.ml
 icon: https://raw.githubusercontent.com/clearml/clearml/master/docs/clearml-logo.svg
 sources:
@@ -21,4 +21,4 @@ keywords:
 annotations:
   artifacthub.io/changes: |
     - kind: changed
-      description: "Support kubernetes 1.32"
+      description: "Dropped kubernetes max compatible version"
