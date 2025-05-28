@@ -3,6 +3,46 @@ entries:
   clearml:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Dropped kubernetes max compatible version"
+    apiVersion: v2
+    appVersion: "2.0"
+    created: "2025-05-28T06:41:42.1771615Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.8.3
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.18.5
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://helm.elastic.co
+      version: 7.17.3
+    description: MLOps platform
+    digest: 21361b6ff9c14f90a3fc438d39f94ce69158db0ff4cd9d35bb268f9ef0d83d2c
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/clearml/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    kubeVersion: '>= 1.21.0-0'
+    maintainers:
+    - name: filippo-clearml
+      url: https://github.com/filippo-clearml
+    name: clearml
+    sources:
+    - https://github.com/clearml/clearml-helm-charts
+    - https://github.com/clearml/clearml
+    type: application
+    urls:
+    - https://github.com/clearml/clearml-helm-charts/releases/download/clearml-7.14.5/clearml-7.14.5.tgz
+    version: 7.14.5
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "casted port to string before concatenation"
     apiVersion: v2
@@ -4491,6 +4531,34 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
+          description: "Dropped kubernetes max compatible version"
+    apiVersion: v2
+    appVersion: "1.24"
+    created: "2025-05-28T06:41:42.370545242Z"
+    description: MLOps platform Task running agent
+    digest: 8cb9c5b331acfcf52a59740a51a8ea67230279960d3dcb27f9c6440f34f8182b
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/clearml/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - task agent
+    kubeVersion: '>= 1.21.0-0'
+    maintainers:
+    - name: filippo-clearml
+      url: https://github.com/filippo-clearml
+    name: clearml-agent
+    sources:
+    - https://github.com/clearml/clearml-helm-charts
+    - https://github.com/clearml/clearml
+    type: application
+    urls:
+    - https://github.com/clearml/clearml-helm-charts/releases/download/clearml-agent-5.3.3/clearml-agent-5.3.3.tgz
+    version: 5.3.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
           description: "Support kubernetes 1.32"
     apiVersion: v2
     appVersion: "1.24"
@@ -5950,6 +6018,47 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
+          description: "Dropped kubernetes max compatible version"
+    apiVersion: v2
+    appVersion: 1.3.0
+    created: "2025-05-28T06:41:42.616891774Z"
+    dependencies:
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 21.4.0
+    - condition: prometheus.enabled
+      name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 19.7.2
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 6.52.3
+    description: ClearML Serving Helm Chart
+    digest: fbb7130443f86799b05ee3dd9ec62e4ce7d11b32c3b56fe521f37340721c88ad
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/clearml/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    - model serving
+    kubeVersion: '>= 1.21.0-0'
+    maintainers:
+    - name: filippo-clearml
+      url: https://github.com/filippo-clearml
+    name: clearml-serving
+    sources:
+    - https://github.com/clearml/clearml-helm-charts
+    - https://github.com/clearml/clearml
+    type: application
+    urls:
+    - https://github.com/clearml/clearml-helm-charts/releases/download/clearml-serving-1.5.11/clearml-serving-1.5.11.tgz
+    version: 1.5.11
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
           description: Support kubernetes 1.32
     apiVersion: v2
     appVersion: 1.3.0
@@ -7018,4 +7127,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-12T09:27:56.521634998Z"
+generated: "2025-05-28T06:41:42.617495575Z"
