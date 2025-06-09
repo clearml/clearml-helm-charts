@@ -1,6 +1,6 @@
 # ClearML Kubernetes Serving
 
-![Version: 1.5.11](https://img.shields.io/badge/Version-1.5.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
+![Version: 1.6.0](https://img.shields.io/badge/Version-1.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
 
 ClearML Serving Helm Chart
 
@@ -62,7 +62,7 @@ Kubernetes: `>= 1.21.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | clearml | object | `{"apiAccessKey":"ClearML API Access Key","apiHost":"http://clearml-server-apiserver:8008","apiSecretKey":"ClearML API Secret Key","defaultBaseServeUrl":"http://127.0.0.1:8080/serve","filesHost":"http://clearml-server-fileserver:8081","kafkaServeUrl":"","servingTaskId":"ClearML Serving Task ID","webHost":"http://clearml-server-webserver:80"}` | ClearMl generic configurations |
-| clearml_serving_inference | object | `{"additionalConfigs":{},"affinity":{},"autoscaling":{"enabled":false,"maxReplicas":11,"minReplicas":1,"targetCPU":50,"targetMemory":50},"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvironment":[],"extraPythonPackages":[],"image":{"repository":"allegroai/clearml-serving-inference","tag":"1.3.0"},"ingress":{"annotations":{},"enabled":false,"hostName":"serving.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"resources":{},"tolerations":[]}` | ClearML serving inference configurations |
+| clearml_serving_inference | object | `{"additionalConfigs":{},"affinity":{},"autoscaling":{"enabled":false,"maxReplicas":11,"minReplicas":1,"targetCPU":50,"targetMemory":50},"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvironment":[],"extraPythonPackages":[],"image":{"repository":"allegroai/clearml-serving-inference","tag":"1.3.0"},"ingress":{"annotations":{},"enabled":false,"hostName":"serving.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"pollFrequencyMinutes":"1.0","resources":{},"tolerations":[]}` | ClearML serving inference configurations |
 | clearml_serving_inference.additionalConfigs | object | `{}` | files declared in this parameter will be mounted on internal folder /opt/clearml/config and read by pod (examples in values.yaml) if not overridden by existingAdditionalConfigsSecret |
 | clearml_serving_inference.affinity | object | `{}` | Affinity configuration |
 | clearml_serving_inference.autoscaling | object | `{"enabled":false,"maxReplicas":11,"minReplicas":1,"targetCPU":50,"targetMemory":50}` | Autoscaling configuration |
@@ -79,9 +79,10 @@ Kubernetes: `>= 1.21.0-0`
 | clearml_serving_inference.ingress.path | string | `"/"` | Ingress root path url |
 | clearml_serving_inference.ingress.tlsSecretName | string | `""` | Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule. |
 | clearml_serving_inference.nodeSelector | object | `{}` | Node Selector configuration |
+| clearml_serving_inference.pollFrequencyMinutes | string | `"1.0"` | Default polling frequency for finding new models |
 | clearml_serving_inference.resources | object | `{}` | Pod resources definition |
 | clearml_serving_inference.tolerations | list | `[]` | Tolerations configuration |
-| clearml_serving_statistics | object | `{"additionalConfigs":{},"affinity":{},"enabled":true,"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvironment":[],"extraPythonPackages":[],"image":{"repository":"allegroai/clearml-serving-statistics","tag":"1.3.0"},"nodeSelector":{},"resources":{},"tolerations":[]}` | ClearML serving statistics configurations |
+| clearml_serving_statistics | object | `{"additionalConfigs":{},"affinity":{},"enabled":true,"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvironment":[],"extraPythonPackages":[],"image":{"repository":"allegroai/clearml-serving-statistics","tag":"1.3.0"},"nodeSelector":{},"pollFrequencyMinutes":"1.0","resources":{},"tolerations":[]}` | ClearML serving statistics configurations |
 | clearml_serving_statistics.additionalConfigs | object | `{}` | files declared in this parameter will be mounted on internal folder /opt/clearml/config and read by pod (examples in values.yaml) if not overridden by existingAdditionalConfigsSecret |
 | clearml_serving_statistics.affinity | object | `{}` | Affinity configuration |
 | clearml_serving_statistics.enabled | bool | `true` | Enable ClearML Serving Statistics |
@@ -90,9 +91,10 @@ Kubernetes: `>= 1.21.0-0`
 | clearml_serving_statistics.extraPythonPackages | list | `[]` | Extra Python Packages to be installed in running pods |
 | clearml_serving_statistics.image | object | `{"repository":"allegroai/clearml-serving-statistics","tag":"1.3.0"}` | Container Image |
 | clearml_serving_statistics.nodeSelector | object | `{}` | Node Selector configuration |
+| clearml_serving_statistics.pollFrequencyMinutes | string | `"1.0"` | Default polling frequency for finding new models |
 | clearml_serving_statistics.resources | object | `{}` | Pod resources definition |
 | clearml_serving_statistics.tolerations | list | `[]` | Tolerations configuration |
-| clearml_serving_triton | object | `{"additionalConfigs":{},"affinity":{},"autoscaling":{"enabled":false,"maxReplicas":11,"minReplicas":1,"targetCPU":50,"targetMemory":50},"enabled":true,"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvironment":[],"extraPythonPackages":[],"image":{"repository":"allegroai/clearml-serving-triton","tag":"1.3.0"},"ingress":{"annotations":{},"enabled":false,"hostName":"serving-grpc.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"nodeSelector":{},"resources":{},"tolerations":[]}` | ClearML serving Triton configurations |
+| clearml_serving_triton | object | `{"additionalConfigs":{},"affinity":{},"autoscaling":{"enabled":false,"maxReplicas":11,"minReplicas":1,"targetCPU":50,"targetMemory":50},"enabled":true,"existingAdditionalConfigsConfigMap":"","existingAdditionalConfigsSecret":"","extraEnvironment":[],"extraPythonPackages":[],"image":{"repository":"allegroai/clearml-serving-triton","tag":"1.3.0"},"ingress":{"annotations":{},"enabled":false,"hostName":"serving-grpc.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"metricFrequencyMinutes":"1.0","nodeSelector":{},"pollFrequencyMinutes":"1.0","resources":{},"tolerations":[]}` | ClearML serving Triton configurations |
 | clearml_serving_triton.additionalConfigs | object | `{}` | files declared in this parameter will be mounted on internal folder /opt/clearml/config and read by pod (examples in values.yaml) if not overridden by existingAdditionalConfigsSecret |
 | clearml_serving_triton.affinity | object | `{}` | Affinity configuration |
 | clearml_serving_triton.autoscaling | object | `{"enabled":false,"maxReplicas":11,"minReplicas":1,"targetCPU":50,"targetMemory":50}` | Autoscaling configuration |
@@ -109,7 +111,9 @@ Kubernetes: `>= 1.21.0-0`
 | clearml_serving_triton.ingress.ingressClassName | string | `""` | ClassName (must be defined if no default ingressClassName is available) |
 | clearml_serving_triton.ingress.path | string | `"/"` | Ingress root path url |
 | clearml_serving_triton.ingress.tlsSecretName | string | `""` | Reference to secret containing TLS certificate. If set, it enables HTTPS on ingress rule. |
+| clearml_serving_triton.metricFrequencyMinutes | string | `"1.0"` | Triton metric reporting update frequency in minutes |
 | clearml_serving_triton.nodeSelector | object | `{}` | Node Selector configuration |
+| clearml_serving_triton.pollFrequencyMinutes | string | `"1.0"` | Triton model update frequency in minutes |
 | clearml_serving_triton.resources | object | `{}` | Pod resources definition |
 | clearml_serving_triton.tolerations | list | `[]` | Tolerations configuration |
 | grafana | object | `{"adminPassword":"clearml","adminUser":"admin","datasources":{"datasources.yaml":{"apiVersion":1,"datasources":[{"access":"proxy","isDefault":true,"name":"Prometheus","type":"prometheus","url":"http://{{ .Release.Name }}-prometheus-server"}]}},"enabled":true}` | Configuration from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml |

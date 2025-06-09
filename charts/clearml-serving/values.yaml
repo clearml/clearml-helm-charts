@@ -53,6 +53,8 @@ clearml_serving_statistics:
   additionalConfigs: {}
   #   additionalFile.conf: |
   #     <filecontent>
+  # -- Default polling frequency for finding new models
+  pollFrequencyMinutes: "1.0"
 
 # -- ClearML serving inference configurations
 clearml_serving_inference:
@@ -82,6 +84,8 @@ clearml_serving_inference:
   additionalConfigs: {}
   #   additionalFile.conf: |
   #     <filecontent>
+  # -- Default polling frequency for finding new models
+  pollFrequencyMinutes: "1.0"
   # -- Autoscaling configuration
   autoscaling:
     enabled: false
@@ -137,6 +141,10 @@ clearml_serving_triton:
   additionalConfigs: {}
   #   additionalFile.conf: |
   #     <filecontent>
+  # -- Triton model update frequency in minutes
+  pollFrequencyMinutes: "1.0"
+  # -- Triton metric reporting update frequency in minutes
+  metricFrequencyMinutes: "1.0"
   # -- Autoscaling configuration
   autoscaling:
     enabled: false

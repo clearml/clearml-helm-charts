@@ -67,9 +67,9 @@ spec:
             - name: CLEARML_SERVING_TASK_ID
               value: "{{ .Values.clearml.servingTaskId }}"
             - name: CLEARML_TRITON_POLL_FREQ
-              value: "1.0"
+              value: "{{ .Values.clearml_serving_triton.pollFrequencyMinutes }}"
             - name: CLEARML_TRITON_METRIC_FREQ
-              value: "1.0"
+              value: "{{ .Values.clearml_serving_triton.metricFrequencyMinutes }}"
             {{- if .Values.clearml_serving_triton.extraPythonPackages }}
             - name: CLEARML_EXTRA_PYTHON_PACKAGES
               value: '{{ join " " .Values.clearml_serving_triton.extraPythonPackages }}'

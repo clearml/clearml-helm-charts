@@ -65,7 +65,7 @@ spec:
               {{- end }}
             {{- end }}
             - name: CLEARML_SERVING_POLL_FREQ
-              value: "1.0"
+              value: "{{ .Values.clearml_serving_inference.pollFrequencyMinutes }}"
             - name: CLEARML_DEFAULT_BASE_SERVE_URL
               value: "{{ .Values.clearml.defaultBaseServeUrl }}"
             - name: CLEARML_DEFAULT_TRITON_GRPC_ADDR

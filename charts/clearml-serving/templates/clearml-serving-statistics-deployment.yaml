@@ -64,7 +64,7 @@ spec:
               value: {{ include "clearmlServing.fullname" . }}-kafka:9092
               {{- end }}
             - name: CLEARML_SERVING_POLL_FREQ
-              value: "1.0"
+              value: "{{ .Values.clearml_serving_statistics.pollFrequencyMinutes }}"
             - name: CLEARML_SERVING_TASK_ID
               value: "{{ .Values.clearml.servingTaskId }}"
             {{- if .Values.clearml_serving_statistics.extraPythonPackages }}
