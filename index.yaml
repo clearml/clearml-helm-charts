@@ -3,6 +3,46 @@ entries:
   clearml:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "extraEnvs to apiserver-asyncdelete deployment"
+    apiVersion: v2
+    appVersion: "2.0"
+    created: "2025-07-16T07:22:05.581337575Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.8.3
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.18.5
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://helm.elastic.co
+      version: 7.17.3
+    description: MLOps platform
+    digest: e039b8864afd72a9c0617738e15b9e18916047660b2e270afc73deed4bca055b
+    home: https://clear.ml
+    icon: https://raw.githubusercontent.com/clearml/clearml/master/docs/clearml-logo.svg
+    keywords:
+    - clearml
+    - machine learning
+    - mlops
+    kubeVersion: '>= 1.21.0-0'
+    maintainers:
+    - name: filippo-clearml
+      url: https://github.com/filippo-clearml
+    name: clearml
+    sources:
+    - https://github.com/clearml/clearml-helm-charts
+    - https://github.com/clearml/clearml
+    type: application
+    urls:
+    - https://github.com/clearml/clearml-helm-charts/releases/download/clearml-7.14.6/clearml-7.14.6.tgz
+    version: 7.14.6
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Dropped kubernetes max compatible version"
     apiVersion: v2
@@ -7168,4 +7208,4 @@ entries:
     urls:
     - https://github.com/allegroai/clearml-helm-charts/releases/download/clearml-serving-0.1.0/clearml-serving-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-10T07:56:02.599460221Z"
+generated: "2025-07-16T07:22:05.58190424Z"
