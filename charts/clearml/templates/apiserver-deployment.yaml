@@ -103,6 +103,17 @@ spec:
           {{- if .Values.mongodb.enabled }}
           - name: CLEARML_MONGODB_SERVICE_CONNECTION_STRING
             value: {{ include "mongodb.connectionstring" . | quote }}
+          {{- else if and ( .Values.externalServices.mongodbConnectionStringAuthSecret.secretName ) ( .Values.externalServices.mongodbConnectionStringBackendSecret.secretName )}}
+          - name: CLEARML__HOSTS__MONGO__BACKEND__HOST
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.externalServices.mongodbConnectionStringBackendSecret.secretName }}
+                key: {{ .Values.externalServices.mongodbConnectionStringBackendSecret.secretKey }}
+          - name: CLEARML__HOSTS__MONGO__AUTH__HOST
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.externalServices.mongodbConnectionStringAuthSecret.secretName }}
+                key: {{ .Values.externalServices.mongodbConnectionStringAuthSecret.secretKey }}
           {{- else }}
           - name: CLEARML__HOSTS__MONGO__BACKEND__HOST
             value: {{ .Values.externalServices.mongodbConnectionStringBackend | quote }}

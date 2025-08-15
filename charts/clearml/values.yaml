@@ -378,10 +378,22 @@ webserver:
 externalServices:
   # -- Existing ElasticSearch connectionstring if elasticsearch.enabled is false (example in values.yaml)
   elasticsearchConnectionString: "[{\"host\":\"es_hostname1\",\"port\":9200},{\"host\":\"es_hostname2\",\"port\":9200},{\"host\":\"es_hostname3\",\"port\":9200}]"
-  # -- Existing MongoDB connection string for BACKEND to use if mongodb.enabled is false (example in values.yaml)
+  # -- Existing MongoDB connection string for BACKEND to use if mongodb.enabled is false (example in values.yaml). Will be ignored if externalServices.mongodbConnectionStringAuthSecret is set.
   mongodbConnectionStringAuth: "mongodb://mongodb_hostname:27017/auth"
-  # -- Existing MongoDB connection string for AUTH to use if mongodb.enabled is false (example in values.yaml)
+  # -- Existing MongoDB connection string for AUTH to use if mongodb.enabled is false (example in values.yaml). Will be ignored if externalServices.mongodbConnectionStringBackendSecret is set.
   mongodbConnectionStringBackend: "mongodb://mongodb_hostnamehostname:27017/backend"
+  # -- Secret containing MongoDB connection string for AUTH to use if mongodb.enabled is false.
+  # The secret has to be set such that the string secret is wrapped with double quotes like "\"mongodb://clearml:XXXXXXX@yyyy.eeee.mongodb.net/auth?retryWrites=true&w=majority\""
+  # due to the following https://github.com/clearml/clearml-server/issues/86
+  mongodbConnectionStringAuthSecret:
+    secretName: ""
+    secretKey: ""
+  # -- Secret containing MongoDB connection string for BACKEND to use if mongodb.enabled is false.
+  # The secret has to be set such that the string secret is wrapped with double quotes like "\"mongodb://clearml:XXXXXXX@yyyy.eeee.mongodb.net/backend?retryWrites=true&w=majority\""
+  # due to the following https://github.com/clearml/clearml-server/issues/86
+  mongodbConnectionStringBackendSecret:
+    secretName: ""
+    secretKey: ""
   # -- Existing Redis Hostname to use if redis.enabled is false (example in values.yaml)
   redisHost: "redis_hostname"
   # -- Existing Redis Port to use if redis.enabled is false
