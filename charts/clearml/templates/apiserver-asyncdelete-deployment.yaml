@@ -121,6 +121,9 @@ spec:
             value: "{{ .Values.clearml.defaultCompanyGuid }}"
           - name: CLEARML__services__async_urls_delete__fileserver__url_prefixes
             value: "[\"{{ include "clearml.fileUrl" . }}\"]"
+          {{- if .Values.apiserver.asyncdelete.extraEnvs }}
+          {{ toYaml .Values.apiserver.asyncdelete.extraEnvs | nindent 10 }}
+          {{- end }}
           {{- if or .Values.apiserver.additionalConfigs .Values.apiserver.existingAdditionalConfigsConfigMap  .Values.apiserver.existingAdditionalConfigsSecret }}
           volumeMounts:  
             - name: apiserver-config

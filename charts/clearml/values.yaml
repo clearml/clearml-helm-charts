@@ -183,6 +183,10 @@ apiserver:
   additionalVolumeMounts: {}
   #  - mountPath: /dev/shm
   #    name: ramdisk
+  # -- Api Server asyncdelete configurations
+  asyncdelete:
+    # -- Api Server asyncdelete extra environment variables
+    extraEnvs: []
 
 # -- File Server configurations
 fileserver:
