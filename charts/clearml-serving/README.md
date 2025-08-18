@@ -1,6 +1,6 @@
 # ClearML Kubernetes Serving
 
-![Version: 1.6.0](https://img.shields.io/badge/Version-1.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
+![Version: 1.6.1](https://img.shields.io/badge/Version-1.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0](https://img.shields.io/badge/AppVersion-1.3.0-informational?style=flat-square)
 
 ClearML Serving Helm Chart
 
@@ -124,5 +124,5 @@ Kubernetes: `>= 1.21.0-0`
 | imageCredentials.password | string | `"pwd"` | Registry password |
 | imageCredentials.registry | string | `"docker.io"` | Registry name |
 | imageCredentials.username | string | `"someone"` | Registry username |
-| kafka | object | `{"enabled":true}` | Configuration from https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml |
+| kafka | object | `{"enabled":true,"image":{"repository":"bitnamilegacy/kafka"},"zookeeper":{"image":{"repository":"bitnamilegacy/zookeeper"}}}` | Configuration from https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml |
 | prometheus | object | `{"enabled":true,"extraScrapeConfigs":"- job_name: \"{{ .Release.Name }}-stats\"\n  static_configs:\n    - targets:\n      - \"{{ .Release.Name }}-statistics:9999\"\n","kube-state-metrics":{"enabled":false},"prometheus-node-exporter":{"enabled":false},"prometheus-pushgateway":{"enabled":false},"serverFiles":{"prometheus.yml":{"scrape_configs":[{"job_name":"prometheus","static_configs":[{"targets":["localhost:9090"]}]}]}}}` | Configuration from https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus/values.yaml |
