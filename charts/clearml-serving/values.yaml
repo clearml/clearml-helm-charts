@@ -170,6 +170,11 @@ clearml_serving_triton:
 # -- Configuration from https://github.com/bitnami/charts/blob/main/bitnami/kafka/values.yaml
 kafka:
   enabled: true
+  image:
+    repository: bitnamilegacy/kafka
+  zookeeper:
+    image:
+      repository: bitnamilegacy/zookeeper
 
 # -- Configuration from https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus/values.yaml
 prometheus:
