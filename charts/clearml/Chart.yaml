@@ -34,4 +34,3 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: "mongodb conn strings from secrets"
-      
