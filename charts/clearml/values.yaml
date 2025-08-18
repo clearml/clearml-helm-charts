@@ -386,6 +386,8 @@ externalServices:
 # -- Configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml
 redis:
   enabled: true
+  image:
+    repository: bitnamilegacy/redis
   auth:
     enabled: false
   databaseNumber: 0
@@ -404,6 +406,8 @@ redis:
 # -- Configuration from https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
 mongodb:
   enabled: true
+  image:
+    repository: bitnamilegacy/mongodb
   updateStrategy:
     rollingUpdate:
       maxSurge: 0
