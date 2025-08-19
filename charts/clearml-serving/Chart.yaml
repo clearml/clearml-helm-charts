@@ -34,4 +34,4 @@ dependencies:
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "Fixes for issue #375"
+      description: "Fixes for issue #375 - nodeSelector/toleration for inference app, replicas, etc."
