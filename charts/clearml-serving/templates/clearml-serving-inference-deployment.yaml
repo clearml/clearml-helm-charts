@@ -6,7 +6,9 @@ metadata:
     clearml.serving.service: {{ include "clearmlServing.fullname" . }}-inference
   name: {{ include "clearmlServing.fullname" . }}-inference
 spec:
-  replicas: 1
+  {{- if not .Values.clearml_serving_inference.autoscaling.enabled }}
+  replicas: {{ .Values.clearml_serving_inference.replicas }}
+  {{- end}}
   selector:
     matchLabels:
       clearml.serving.service: {{ include "clearmlServing.fullname" . }}-inference
@@ -44,12 +46,34 @@ spec:
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.clearml_serving_inference.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.clearml_serving_inference.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - env:
             - name: CLEARML_API_ACCESS_KEY
+              {{- if .Values.clearml.apiKeyExistingSecret }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.clearml.apiKeyExistingSecret }}
+                  key: api-access-key
+              {{- else }}
               value: "{{ .Values.clearml.apiAccessKey }}"
+              {{- end}}
             - name: CLEARML_API_SECRET_KEY
+              {{- if .Values.clearml.apiKeyExistingSecret }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.clearml.apiKeyExistingSecret }}
+                  key: api-secret-key
+              {{- else }}
               value: "{{ .Values.clearml.apiSecretKey }}"
+              {{- end}}
             - name: CLEARML_API_HOST
               value: "{{ .Values.clearml.apiHost }}"
             - name: CLEARML_FILES_HOST
@@ -97,14 +121,6 @@ spec:
           volumeMounts:  
             - name: additional-config
               mountPath: /opt/clearml/config
-          {{- end }}
-          {{- with .Values.clearml_serving_inference.nodeSelector }}
-          nodeSelector:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.clearml_serving_inference.tolerations }}
-          tolerations:
-            {{- toYaml . | nindent 12 }}
           {{- end }}
           resources:
             {{- toYaml .Values.clearml_serving_inference.resources | nindent 12 }}

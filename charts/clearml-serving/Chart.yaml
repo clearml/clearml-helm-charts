@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml-serving
 description: ClearML Serving Helm Chart
 type: application
-version: "1.6.2"
+version: "1.6.3"
 appVersion: "1.3.0"
 kubeVersion: ">= 1.21.0-0"
 home: https://clear.ml
@@ -34,4 +34,4 @@ dependencies:
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "Bitnami registries workaround"
+      description: "Fixes for issue #375 - nodeSelector/toleration for inference app, replicas, etc."

@@ -17,6 +17,8 @@ imageCredentials:
 clearml:
   apiAccessKey: "ClearML API Access Key"
   apiSecretKey: "ClearML API Secret Key"
+  # -- Pass ClearML API secrets using an existing secret. The secret must contain fields: api-access-key, api-secret-key
+  apiKeyExistingSecret: ""
   apiHost: http://clearml-server-apiserver:8008
   filesHost: http://clearml-server-fileserver:8081
   webHost: http://clearml-server-webserver:80
@@ -26,6 +28,8 @@ clearml:
 
 # -- ClearML serving statistics configurations
 clearml_serving_statistics:
+  # -- Number of replicas
+  replicas: 1
   # -- Enable ClearML Serving Statistics
   enabled: true
   # -- Container Image
@@ -86,6 +90,8 @@ clearml_serving_inference:
   #     <filecontent>
   # -- Default polling frequency for finding new models
   pollFrequencyMinutes: "1.0"
+  # -- Number of replicas - only effective when autoscaling is disabled
+  replicas: 1
   # -- Autoscaling configuration
   autoscaling:
     enabled: false
@@ -145,6 +151,8 @@ clearml_serving_triton:
   pollFrequencyMinutes: "1.0"
   # -- Triton metric reporting update frequency in minutes
   metricFrequencyMinutes: "1.0"
+  # -- Number of replicas - only effective when autoscaling is disabled
+  replicas: 1
   # -- Autoscaling configuration
   autoscaling:
     enabled: false

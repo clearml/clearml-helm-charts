@@ -7,7 +7,9 @@ metadata:
     clearml.serving.service: {{ include "clearmlServing.fullname" . }}-triton
   name: {{ include "clearmlServing.fullname" . }}-triton
 spec:
-  replicas: 1
+  {{- if not .Values.clearml_serving_triton.autoscaling.enabled }}
+  replicas: {{ .Values.clearml_serving_triton.replicas }}
+  {{- end }}
   selector:
     matchLabels:
       clearml.serving.service: {{ include "clearmlServing.fullname" . }}-triton
