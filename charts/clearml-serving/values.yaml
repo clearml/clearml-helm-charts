@@ -18,7 +18,7 @@ clearml:
   apiAccessKey: "ClearML API Access Key"
   apiSecretKey: "ClearML API Secret Key"
   # -- Pass ClearML API secrets using an existing secret. The secret must contain fields: api-access-key, api-secret-key
-  # apiKeyExistingSecret: ""
+  apiKeyExistingSecret: ""
   apiHost: http://clearml-server-apiserver:8008
   filesHost: http://clearml-server-fileserver:8081
   webHost: http://clearml-server-webserver:80

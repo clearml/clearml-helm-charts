@@ -34,4 +34,4 @@ dependencies:
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "Bitnami registries workaround"
+      description: "Fixes for issue #375"
