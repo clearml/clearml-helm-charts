@@ -7,7 +7,7 @@ metadata:
     clearml.serving.service: {{ include "clearmlServing.fullname" . }}-statistics
   name: {{ include "clearmlServing.fullname" . }}-statistics
 spec:
-  replicas: 1
+  replicas: {{ .Values.clearml_serving_statistics.replicas }}
   selector:
     matchLabels:
       clearml.serving.service: {{ include "clearmlServing.fullname" . }}-statistics
