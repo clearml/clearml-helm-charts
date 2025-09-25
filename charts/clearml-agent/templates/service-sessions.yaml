@@ -4,7 +4,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: clearml-session-{{ . }}
+  name: {{ include "clearmlAgent.fullname" $ }}-session-{{ . }}
   labels:
     {{- include "clearmlAgent.labels" $ | nindent 4 }}
   {{- with $.Values.sessions.svcAnnotations }}
@@ -26,5 +26,6 @@ spec:
       {{- end }}
   selector:
     ai.allegro.agent.serial: pod-{{ . }}
+    app.kubernetes.io/instance: {{ include "clearmlAgent.fullname" $ }}
 {{- end }}
 {{- end }}

@@ -32,7 +32,7 @@ spec:
                   listen {{ add $.Values.sessions.startingPort . }};
                   proxy_connect_timeout 10s;
                   proxy_timeout 600s;
-                  proxy_pass clearml-session-{{ . }}:{{ add $.Values.sessions.startingPort . }};
+                  proxy_pass {{ include "clearmlAgent.fullname" $ }}-session-{{ . }}:{{ add $.Values.sessions.startingPort . }};
                 }
                 {{- end }}
               }
