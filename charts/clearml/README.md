@@ -1,6 +1,6 @@
 # ClearML Ecosystem for Kubernetes
 
-![Version: 7.14.7](https://img.shields.io/badge/Version-7.14.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0](https://img.shields.io/badge/AppVersion-2.0-informational?style=flat-square)
+![Version: 7.15.0](https://img.shields.io/badge/Version-7.15.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0](https://img.shields.io/badge/AppVersion-2.0-informational?style=flat-square)
 
 MLOps platform
 
@@ -11,6 +11,7 @@ MLOps platform
 | Name | Email | Url |
 | ---- | ------ | --- |
 | filippo-clearml |  | <https://github.com/filippo-clearml> |
+| vm-clearml |  | <https://github.com/vm-clearml> |
 
 ## Introduction
 
@@ -146,8 +147,9 @@ Kubernetes: `>= 1.21.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | mongodb | 13.18.5 |
-| https://charts.bitnami.com/bitnami | redis | 17.8.3 |
 | https://helm.elastic.co | elasticsearch | 7.17.3 |
+| https://mongodb.github.io/helm-charts | mckMongodb(mongodb-kubernetes) | 1.6.1 |
+| oci://ghcr.io/dragonflydb/dragonfly/helm | dragonfly | v1.36.0 |
 
 ## Values
 
@@ -208,13 +210,14 @@ Kubernetes: `>= 1.21.0-0`
 | clearml.secureAuthTokenSecret | string | `"ymLh1ok5k5xNUQfS944Xdx9xjf0wueokqKM2dMZfHuH9ayItG2"` | Secure Auth secret |
 | clearml.testUserKey | string | `"ENP39EQM4SLACGD5FXB7"` | Test Server basic auth key |
 | clearml.testUserSecret | string | `"lPcm0imbcBZ8mwgO7tpadutiS3gnJD05x9j7afwXPS35IKbpiQ"` | Test File Server basic auth secret |
+| dragonfly | object | `{"enabled":true,"replicaCount":1,"storage":{"enabled":true,"requests":"5Gi"}}` | Configuration from https://github.com/dragonflydb/dragonfly/blob/main/contrib/charts/dragonfly/values.yaml |
 | elasticsearch | object | `{"clusterHealthCheckParams":"wait_for_status=yellow&timeout=1s","clusterName":"clearml-elastic","enabled":true,"esConfig":{"elasticsearch.yml":"xpack.security.enabled: false\n"},"esJavaOpts":"-Xmx2g -Xms2g","extraEnvs":[{"name":"bootstrap.memory_lock","value":"false"},{"name":"cluster.routing.allocation.node_initial_primaries_recoveries","value":"500"},{"name":"cluster.routing.allocation.disk.watermark.low","value":"500mb"},{"name":"cluster.routing.allocation.disk.watermark.high","value":"500mb"},{"name":"cluster.routing.allocation.disk.watermark.flood_stage","value":"500mb"},{"name":"http.compression_level","value":"7"},{"name":"reindex.remote.whitelist","value":"*.*"},{"name":"xpack.monitoring.enabled","value":"false"},{"name":"xpack.security.enabled","value":"false"}],"httpPort":9200,"minimumMasterNodes":1,"persistence":{"enabled":true},"rbac":{"create":true},"replicas":1,"resources":{"limits":{"cpu":"2000m","memory":"4Gi"},"requests":{"cpu":"100m","memory":"2Gi"}},"roles":{"data":"true","ingest":"true","master":"true","remote_cluster_client":"true"},"volumeClaimTemplate":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"50Gi"}},"storageClassName":null}}` | Configuration from https://github.com/elastic/helm-charts/blob/7.16/elasticsearch/values.yaml |
-| externalServices | object | `{"elasticsearchConnectionString":"[{\"host\":\"es_hostname1\",\"port\":9200},{\"host\":\"es_hostname2\",\"port\":9200},{\"host\":\"es_hostname3\",\"port\":9200}]","mongodbConnectionStringAuth":"mongodb://mongodb_hostname:27017/auth","mongodbConnectionStringBackend":"mongodb://mongodb_hostnamehostname:27017/backend","redisHost":"redis_hostname","redisPort":6379}` | Definition of external services to use if not enabled as dependency charts here |
+| externalServices | object | `{"dragonflyHost":"dragonfly_hostname","dragonflyPort":6379,"elasticsearchConnectionString":"[{\"host\":\"es_hostname1\",\"port\":9200},{\"host\":\"es_hostname2\",\"port\":9200},{\"host\":\"es_hostname3\",\"port\":9200}]","mongodbConnectionStringAuth":"mongodb://mongodb_hostname:27017/auth","mongodbConnectionStringBackend":"mongodb://mongodb_hostnamehostname:27017/backend"}` | Definition of external services to use if not enabled as dependency charts here |
+| externalServices.dragonflyHost | string | `"dragonfly_hostname"` | Existing Redis Hostname to use if dragonfly.enabled is false (example in values.yaml) |
+| externalServices.dragonflyPort | int | `6379` | Existing Redis Port to use if dragonfly.enabled is false |
 | externalServices.elasticsearchConnectionString | string | `"[{\"host\":\"es_hostname1\",\"port\":9200},{\"host\":\"es_hostname2\",\"port\":9200},{\"host\":\"es_hostname3\",\"port\":9200}]"` | Existing ElasticSearch connectionstring if elasticsearch.enabled is false (example in values.yaml) |
 | externalServices.mongodbConnectionStringAuth | string | `"mongodb://mongodb_hostname:27017/auth"` | Existing MongoDB connection string for BACKEND to use if mongodb.enabled is false (example in values.yaml) |
 | externalServices.mongodbConnectionStringBackend | string | `"mongodb://mongodb_hostnamehostname:27017/backend"` | Existing MongoDB connection string for AUTH to use if mongodb.enabled is false (example in values.yaml) |
-| externalServices.redisHost | string | `"redis_hostname"` | Existing Redis Hostname to use if redis.enabled is false (example in values.yaml) |
-| externalServices.redisPort | int | `6379` | Existing Redis Port to use if redis.enabled is false |
 | fileserver | object | `{"additionalVolumeMounts":{},"additionalVolumes":{},"affinity":{},"containerSecurityContext":{},"deploymentAnnotations":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","registry":"","repository":"allegroai/clearml","tag":"2.0.0-613"},"ingress":{"annotations":{},"enabled":false,"hostName":"files.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"initContainers":{"resources":{"limits":{"cpu":"10m","memory":"64Mi"},"requests":{"cpu":"10m","memory":"64Mi"}}},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"annotations":{},"nodePort":30081,"port":8081,"type":"NodePort"},"serviceAccountAnnotations":{},"serviceAccountName":"clearml","storage":{"data":{"accessMode":"ReadWriteOnce","class":"","existingPVC":"","size":"50Gi"},"enabled":true},"tolerations":[]}` | File Server configurations |
 | fileserver.additionalVolumeMounts | object | `{}` | Specifies where and how the volumes defined in additionalVolumes. |
 | fileserver.additionalVolumes | object | `{}` | # Defines extra Kubernetes volumes to be attached to the pod. |
@@ -257,8 +260,8 @@ Kubernetes: `>= 1.21.0-0`
 | imageCredentials.password | string | `"pwd"` | Registry password |
 | imageCredentials.registry | string | `"docker.io"` | Registry name |
 | imageCredentials.username | string | `"someone"` | Registry username |
+| mckMongodb | object | `{"community":{"createResource":true,"resource":{"members":1,"name":"mongodb-replica-set","users":[{"db":"admin","name":"root","passwordSecretRef":{"name":"mongodb-root"},"roles":[{"db":"admin","name":"clusterAdmin"},{"db":"admin","name":"userAdminAnyDatabase"},{"db":"admin","name":"readWriteAnyDatabase"},{"db":"admin","name":"dbAdminAnyDatabase"}],"scramCredentialsSecretName":"clearml-scram"}],"version":"7.0.28"}},"enabled":false,"migrated":false}` | Configuration from https://github.com/mongodb/mongodb-kubernetes/blob/1.6.1/helm_chart/values.yaml |
 | mongodb | object | `{"architecture":"standalone","auth":{"enabled":false},"enabled":true,"image":{"repository":"bitnamilegacy/mongodb"},"persistence":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"50Gi","storageClass":null},"replicaCount":1,"updateStrategy":{"rollingUpdate":{"maxSurge":0,"maxUnavailable":1},"type":"RollingUpdate"}}` | Configuration from https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml |
-| redis | object | `{"architecture":"standalone","auth":{"enabled":false},"databaseNumber":0,"enabled":true,"image":{"repository":"bitnamilegacy/redis"},"master":{"name":"{{ .Release.Name }}-redis-master","persistence":{"accessModes":["ReadWriteOnce"],"enabled":true,"size":"5Gi","storageClass":null},"port":6379}}` | Configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml |
 | webserver | object | `{"additionalConfigs":{},"additionalVolumeMounts":{},"additionalVolumes":{},"affinity":{},"containerSecurityContext":{},"deploymentAnnotations":{},"enabled":true,"extraEnvs":[],"image":{"pullPolicy":"IfNotPresent","registry":"","repository":"allegroai/clearml","tag":"2.0.0-613"},"ingress":{"annotations":{},"enabled":false,"hostName":"app.clearml.127-0-0-1.nip.io","ingressClassName":"","path":"/","tlsSecretName":""},"initContainers":{"resources":{"limits":{"cpu":"10m","memory":"64Mi"},"requests":{"cpu":"10m","memory":"64Mi"}}},"nodeSelector":{},"podAnnotations":{},"podSecurityContext":{},"replicaCount":1,"resources":{"limits":{"cpu":"2000m","memory":"1Gi"},"requests":{"cpu":"100m","memory":"256Mi"}},"service":{"annotations":{},"nodePort":30080,"port":8080,"type":"NodePort"},"serviceAccountAnnotations":{},"serviceAccountName":"clearml","tolerations":[]}` | Web Server configurations |
 | webserver.additionalConfigs | object | `{}` | Additional specific webserver configurations |
 | webserver.additionalVolumeMounts | object | `{}` | Specifies where and how the volumes defined in additionalVolumes. |
