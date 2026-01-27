@@ -100,6 +100,140 @@ A production ready cluster should also have some different configuration like th
 helm install clearml clearml/clearml -f values-production.yaml
 ```
 
+## Dependencies migration
+
+Starting chart version `7.15.0`, a migration path for database dependencies is available to help users transition to new bundled dependencies.
+
+**IMPORTANT**: This procedure is required to prepare for future Helm chart updates that may not be possible if the migration is not completed. The migration ensures data consistency and compatibility with upcoming chart versions.
+
+For detailed migration instructions, see the [Kubernetes Dependencies Migration Guide](k8s_dependencies_migration.md).
+
+### Procedure
+
+#### Phase 1: Enable MCK MongoDB Deployment
+
+Add CRDs following Helm chart README:
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/mongodb/mongodb-kubernetes/1.6.1/public/crds.yaml
+```
+
+Update your Helm chart configuration with the following values to deploy the MCK MongoDB instance, staying on Helm chart version `7.15.0`:
+
+```yaml
+mckMongodb:
+  enabled: true
+```
+
+Upgrade chart accordingly with helm upgrade command.
+
+**Note**: This step creates the new MongoDB instance in parallel with the existing Bitnami deployment, allowing for data migration without service interruption.
+
+#### Phase 2: Data Migration Process
+
+**2.1 Scale down the ClearML API server**
+
+Scale down ClearML services:
+
+```bash
+kubectl -n <clearml namespace> scale deployment -l app.kubernetes.io/name=clearml --replicas=0
+```
+
+**2.2 Deploy Migration Pod**
+
+Create a Kubernetes pod equipped with MongoDB tools for the migration process. Create a file called `mongodb-migrate.yaml`:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongodb-migrate
+spec:
+  restartPolicy: Never
+  containers:
+    - name: mongo-tools
+      image: mongo:7
+      command: ["sleep", "infinity"]
+      env:
+        - name: CLEARML_MONGODB_SERVICE_CONNECTION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-root
+              key: connectionString
+```
+
+Deploy and access the migration pod:
+
+```bash
+kubectl -n <clearml namespace> apply -f mongodb-migrate.yaml
+```
+
+**2.3 Export Data from Source Database**
+
+Dump data from Bitnami MongoDB:
+
+```bash
+MONGO_CONNECTION_STRING=$(kubectl get deploy -n <clearml namespace> -o jsonpath='{.items[*].spec.template.spec.containers[?(@.name=="clearml-apiserver")].env[?(@.name=="CLEARML_MONGODB_SERVICE_CONNECTION_STRING")].value}{"\n"}')
+kubectl -n <clearml namespace> exec -it mongodb-migrate -- mongodump --uri="$MONGO_CONNECTION_STRING" --archive=/dump.archive --gzip
+```
+
+Copy the dump to a local system so there's a further local copy just in case:
+
+```bash
+kubectl -n <clearml namespace> cp mongodb-migrate:/dump.archive /tmp/dump.archive
+```
+
+**2.4 Import Data to Target Database**
+
+Restore data to MCK MongoDB:
+
+```bash
+kubectl -n <clearml namespace> exec -it mongodb-migrate -- sh -c 'mongorestore \
+  --uri="$CLEARML_MONGODB_SERVICE_CONNECTION_STRING" \
+  --archive=/dump.archive \
+  --gzip \
+  --drop'
+```
+
+#### Phase 3: Configuration Updates
+
+**3.1 Mark Migration as Complete**
+
+Update your Helm configuration to indicate successful data migration, staying on Helm chart version 7.15.0:
+
+```yaml
+mckMongodb:
+  enabled: true
+  migrated: true
+```
+
+Upgrade chart accordingly with helm upgrade command.
+
+**3.2 Validate System Functionality**
+
+Thoroughly test ClearML Enterprise functionality to ensure all components are working correctly with the new MongoDB deployment.
+
+**3.3 Decommission Bitnami MongoDB**
+
+Once validation is complete, disable the legacy Bitnami MongoDB deployment, staying on Helm chart version 7.15.0:
+
+```yaml
+mongodb:
+  enabled: false
+mckMongodb:
+  enabled: true
+  migrated: true
+```
+
+Upgrade chart accordingly with helm upgrade command.
+
+**3.4 Remove migration pod**
+
+Remove the migration pod:
+
+```bash
+kubectl -n <clearml namespace> delete -f mongodb-migrate.yaml
+
 ## Upgrades/ Values upgrades
 
 Updating to latest version of this chart can be done in two steps:
