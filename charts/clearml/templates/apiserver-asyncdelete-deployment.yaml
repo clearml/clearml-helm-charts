@@ -59,15 +59,20 @@ spec:
                 sleep 5 ;
               done ;
               {{- end }}
-              {{- if .Values.mongodb.enabled }}
+              {{- if .Values.mckMongodb.migrated }}
+              while [ $(curl --telnet-option BOGUS --connect-timeout 2 -s "telnet://mongodb-replica-set-svc:27017" -o /dev/null; echo $?) -ne 49 ] ; do
+                echo "waiting for MCK mongodb" ;
+                sleep 5 ;
+              done ;
+              {{- else if .Values.mongodb.enabled }}
               while [ $(curl --telnet-option BOGUS --connect-timeout 2 -s "telnet://{{ .Release.Name }}-{{ include "mongodb.hostname" . }}:27017" -o /dev/null; echo $?) -ne 49 ] ; do
                 echo "waiting for mongodb" ;
                 sleep 5 ;
               done ;
               {{- end }}
-              {{- if .Values.redis.enabled }}
-              while [ $(curl --telnet-option BOGUS --connect-timeout 2 -s "telnet://{{ include "redis.servicename" . }}:{{ include "redis.serviceport" . }}" -o /dev/null; echo $?) -ne 49 ] ; do
-                echo "waiting for redis" ;
+              {{- if .Values.dragonfly.enabled }}
+              while [ $(curl --telnet-option BOGUS --connect-timeout 2 -s "telnet://{{ include "dragonfly.servicename" . }}:{{ include "dragonfly.serviceport" . }}" -o /dev/null; echo $?) -ne 49 ] ; do
+                echo "waiting for dragonfly" ;
                 sleep 5 ;
               done ;
               {{- end }}
@@ -86,10 +91,16 @@ spec:
               python3 -m jobs.async_urls_delete --fileserver-host http://{{ include "fileserver.referenceName" . }}:{{ .Values.fileserver.service.port }}
           env:
           - name: CLEARML_REDIS_SERVICE_HOST
-            value: {{ include "redis.servicename" . }}
+            value: {{ include "dragonfly.servicename" . }}
           - name: CLEARML_REDIS_SERVICE_PORT
-            value: "{{ include "redis.serviceport" . }}"
-          {{- if .Values.mongodb.enabled }}
+            value: "{{ include "dragonfly.serviceport" . }}"
+          {{- if .Values.mckMongodb.migrated }}
+          - name: CLEARML_MONGODB_SERVICE_CONNECTION_STRING
+            valueFrom:
+              secretKeyRef:
+                name: {{ (index .Values.mckMongodb.community.resource.users 0).passwordSecretRef.name }}
+                key: connectionString
+          {{- else if .Values.mongodb.enabled }}
           - name: CLEARML_MONGODB_SERVICE_CONNECTION_STRING
             value: {{ include "mongodb.connectionstring" . | quote }}
           {{- else }}

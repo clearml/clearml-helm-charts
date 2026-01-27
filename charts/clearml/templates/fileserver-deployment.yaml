@@ -80,9 +80,9 @@ spec:
           - name: CLEARML__HOSTS__API_SERVER
             value: "http://{{ include "apiserver.referenceName" . }}:{{ .Values.apiserver.service.port }}"
           - name: CLEARML_REDIS_SERVICE_HOST
-            value: {{ include "redis.servicename" . }}
+            value: {{ include "dragonfly.servicename" . }}
           - name: CLEARML_REDIS_SERVICE_PORT
-            value: "{{ include "redis.serviceport" . }}"
+            value: "{{ include "dragonfly.serviceport" . }}"
           {{- if not (eq .Values.clearml.cookieDomain "") }}
           - name: CLEARML__FILESERVER__AUTH__COOKIE_NAMES
             value: "[ {{ .Values.clearml.cookieName }} ]"

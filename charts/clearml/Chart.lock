@@ -1,12 +1,15 @@
 dependencies:
-- name: redis
-  repository: https://charts.bitnami.com/bitnami
-  version: 17.8.3
+- name: dragonfly
+  repository: oci://ghcr.io/dragonflydb/dragonfly/helm
+  version: v1.36.0
 - name: mongodb
   repository: https://charts.bitnami.com/bitnami
   version: 13.18.5
+- name: mongodb-kubernetes
+  repository: https://mongodb.github.io/helm-charts
+  version: 1.6.1
 - name: elasticsearch
   repository: https://helm.elastic.co
   version: 7.17.3
-digest: sha256:d5864444fa8c5cb66a83ec02cdbe4b0776f9f6538dfe67132be7eeb2781b50e4
-generated: "2025-01-07T15:18:46.845769+01:00"
+digest: sha256:75c08f9445fe7e5de2212036a63042cc95e65c59398c940974e468b234a7a08b
+generated: "2026-01-27T13:05:14.554201+01:00"

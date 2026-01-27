@@ -199,7 +199,7 @@ Elasticsearch Service schema
 {{- end }}
 
 {{/*
-Elasticsearch Comnnection string
+Elasticsearch Connection string
 */}}
 {{- define "elasticsearch.connectionstring" -}}
 {{- if .Values.elasticsearch.enabled }}
@@ -210,50 +210,59 @@ Elasticsearch Comnnection string
 {{- end }}
 
 {{/*
-MongoDB Comnnection string
+MongoDB Connection string
 */}}
 {{- define "mongodb.connectionstring" -}}
-{{- if eq .Values.mongodb.architecture "standalone" }}
-{{- printf "%s%s%s" "mongodb://" .Release.Name "-mongodb:27017" }}
-{{- else }}
-{{- $connectionString := "mongodb://" }}
-{{- range $i,$e := until (.Values.mongodb.replicaCount | int) }}
-{{- $connectionString = printf "%s%s%s%s%s%s%s%s%s" $connectionString $.Release.Name "-mongodb-" ( $i | toString ) "." $.Release.Name "-mongodb-headless." $.Release.Namespace ".svc.cluster.local," }}
-{{- end }}
-{{- printf "%s" ( trimSuffix "," $connectionString ) }}
-{{- end }}
-{{- end }}
+{{- $authPrefix := "" -}}
+{{- if .Values.mongodb.auth.enabled -}}
+  {{- $authPrefix = printf "%s:%s@" .Values.mongodb.auth.rootUser .Values.mongodb.auth.rootPassword -}}
+{{- end -}}
+{{- if eq .Values.mongodb.architecture "standalone" -}}
+  {{- printf "mongodb://%s%s-mongodb:27017" $authPrefix .Release.Name -}}
+{{- else -}}
+  {{- $connectionString := printf "mongodb://%s" $authPrefix -}}
+  {{- range $i, $e := until (.Values.mongodb.replicaCount | int) -}}
+    {{- $connectionString = printf "%s%s-mongodb-%d.%s-mongodb-headless.%s.svc.cluster.local," $connectionString $.Release.Name $i $.Release.Name $.Release.Namespace -}}
+  {{- end -}}
+  {{- $connectionString = printf "%s" (trimSuffix "," $connectionString) -}}
+  {{- printf "%s/?replicaSet=%s" $connectionString .Values.mongodb.replicaSetName -}}
+{{- end -}}
+{{- end -}}
 
 {{/*
 MongoDB hostname
 */}}
 {{- define "mongodb.hostname" -}}
-{{- if eq .Values.mongodb.architecture "standalone" }}
-{{- printf "%s" "mongodb" }}
-{{- else }}
-{{- printf "%s" "mongodb-headless" }}
+{{- if .Values.mckMongodb.migrated }}
+  {{- printf "%s" "mongodb-replica-set-svc" }}
+{{- else -}}
+  {{- if eq .Values.mongodb.architecture "standalone" }}
+  {{- printf "%s" "mongodb" }}
+  {{- else }}
+  {{- printf "%s" "mongodb-headless" }}
+  {{- end }}
 {{- end }}
 {{- end }}
 
 {{/*
-Redis Service name
+Dragonfly Service name
 */}}
-{{- define "redis.servicename" -}}
-{{- if .Values.redis.enabled }}
-{{- tpl .Values.redis.master.name . }}
+{{- define "dragonfly.servicename" -}}
+{{- if .Values.dragonfly.enabled }}
+{{- include "dragonfly.fullname" .Subcharts.dragonfly }}
 {{- else }}
-{{- .Values.externalServices.redisHost }}
+{{- .Values.externalServices.dragonflyHost }}
 {{- end }}
 {{- end }}
 
 {{/*
-Redis Service port
+Dragonfly Service port
 */}}
-{{- define "redis.serviceport" -}}
-{{- if .Values.redis.enabled }}
-{{- .Values.redis.master.port }}
+{{- define "dragonfly.serviceport" -}}
+{{- if .Values.dragonfly.enabled }}
+{{- .Values.dragonfly.service.port }}
 {{- else }}
-{{- .Values.externalServices.redisPort }}
+{{- .Values.externalServices.dragonflyPort }}
 {{- end }}
 {{- end }}
 

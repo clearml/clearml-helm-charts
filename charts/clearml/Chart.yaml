@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml
 description: MLOps platform
 type: application
-version: "7.14.7"
+version: "7.15.0"
 appVersion: "2.0"
 kubeVersion: ">= 1.21.0-0"
 home: https://clear.ml
@@ -13,19 +13,26 @@ sources:
 maintainers:
   - name: filippo-clearml
     url: https://github.com/filippo-clearml
+  - name: vm-clearml
+    url: https://github.com/vm-clearml
 keywords:
   - clearml
   - "machine learning"
   - mlops
 dependencies:
-  - name: redis
-    version: "17.8.3"
-    repository: "https://charts.bitnami.com/bitnami"
-    condition: redis.enabled
+  - name: dragonfly
+    version: "v1.36.0"
+    repository: "oci://ghcr.io/dragonflydb/dragonfly/helm"
+    condition: dragonfly.enabled
   - name: mongodb
     version: "13.18.5"
     repository: "https://charts.bitnami.com/bitnami"
     condition: mongodb.enabled
+  - name: mongodb-kubernetes
+    alias: mckMongodb
+    version: "1.6.1"
+    repository: "https://mongodb.github.io/helm-charts"
+    condition: mckMongodb.enabled
   - name: elasticsearch
     version: "7.17.3"
     repository: "https://helm.elastic.co"

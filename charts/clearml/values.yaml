@@ -382,30 +382,18 @@ externalServices:
   mongodbConnectionStringAuth: "mongodb://mongodb_hostname:27017/auth"
   # -- Existing MongoDB connection string for AUTH to use if mongodb.enabled is false (example in values.yaml)
   mongodbConnectionStringBackend: "mongodb://mongodb_hostnamehostname:27017/backend"
-  # -- Existing Redis Hostname to use if redis.enabled is false (example in values.yaml)
-  redisHost: "redis_hostname"
-  # -- Existing Redis Port to use if redis.enabled is false
-  redisPort: 6379
+  # -- Existing Redis Hostname to use if dragonfly.enabled is false (example in values.yaml)
+  dragonflyHost: "dragonfly_hostname"
+  # -- Existing Redis Port to use if dragonfly.enabled is false
+  dragonflyPort: 6379
 
-# -- Configuration from https://github.com/bitnami/charts/blob/master/bitnami/redis/values.yaml
-redis:
+# -- Configuration from https://github.com/dragonflydb/dragonfly/blob/main/contrib/charts/dragonfly/values.yaml
+dragonfly:
   enabled: true
-  image:
-    repository: bitnamilegacy/redis
-  auth:
-    enabled: false
-  databaseNumber: 0
-  master:
-    name: "{{ .Release.Name }}-redis-master"
-    port: 6379
-    persistence:
-      enabled: true
-      accessModes:
-        - ReadWriteOnce
-      size: 5Gi
-      ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
-      storageClass: null
-  architecture: standalone
+  replicaCount: 1
+  storage:
+    enabled: true
+    requests: 5Gi
 
 # -- Configuration from https://github.com/bitnami/charts/blob/master/bitnami/mongodb/values.yaml
 mongodb:
@@ -428,6 +416,50 @@ mongodb:
     size: 50Gi
     ## If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
     storageClass: null
+
+# -- Configuration from https://github.com/mongodb/mongodb-kubernetes/blob/1.6.1/helm_chart/values.yaml
+mckMongodb:
+  enabled: false
+  ## set to true ONLY when data is migrated from mongodb to mckMongoDB
+  migrated: false
+  community:
+    createResource: true
+    resource:
+      name: mongodb-replica-set
+      version: 7.0.28
+      members: 1
+      users:
+      # At least ONE user MUST be defined.
+      # This user is the one ClearML will use to connect to MongoDB.
+      - name: root
+        db: admin
+        passwordSecretRef:
+           # Name of an existing Kubernetes Secret containing the credentials.
+          #
+          # IMPORTANT:
+          # - This secret MUST be created BEFORE enabling mckMongodb.
+          # - Use this when you need a custom or pre-generated password.
+          #
+          # The Secret MUST have the following structure:
+          #
+          # stringData:
+          #   connectionString: "mongodb://<username>:<password>@mongodb-replica-set-svc"
+          #   password: "<password>"
+          #
+          # Notes:
+          # - <username> must match the value of `name` above.
+          # - <password> must be identical in both fields.
+          name: mongodb-root
+        roles:
+          - name: clusterAdmin
+            db: admin
+          - name: userAdminAnyDatabase
+            db: admin
+          - name: readWriteAnyDatabase
+            db: admin
+          - name: dbAdminAnyDatabase
+            db: admin
+        scramCredentialsSecretName: clearml-scram
 
 # -- Configuration from https://github.com/elastic/helm-charts/blob/7.16/elasticsearch/values.yaml
 elasticsearch:
