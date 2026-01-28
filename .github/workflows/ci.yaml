@@ -45,6 +45,8 @@ jobs:
         run: helm repo add bitnami https://charts.bitnami.com/bitnami
       - name: Add elastic repo
         run: helm repo add elastic https://helm.elastic.co
+      - name: Add mongodb repo
+        run: helm repo add mongodb-kubernetes https://mongodb.github.io/helm-charts
       - name: Add prometheus repo
         run: helm repo add prometheus https://prometheus-community.github.io/helm-charts
       - name: Add grafana repo
