@@ -30,6 +30,17 @@ To add this chart to your local Helm repository:
 helm repo add clearml https://clearml.github.io/clearml-helm-charts
 ```
 
+## Kubernetes CRD requirements
+
+During the initial Helm installation, Custom Resource Definitions (CRDs) are automatically installed.
+However, due to Helm's update strategy, these CRDs will not be updated automatically during subsequent `helm upgrade` operations.
+
+To ensure you have the latest CRD versions when performing an upgrade, please apply the CRDs manually before running `helm upgrade`:
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/mongodb/mongodb-kubernetes/1.6.1/public/crds.yaml
+```
+
 ## Local environment
 
 For development/evaluation it's possible to use [kind](https://kind.sigs.k8s.io).
