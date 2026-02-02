@@ -123,6 +123,14 @@ For detailed migration instructions, see the [Kubernetes Dependencies Migration 
 
 #### Phase 1: Enable MCK MongoDB Deployment
 
+### Prerequisites
+
+Export your `clearml namespace` (the default is `clearml` but verify your actual namespace as it may have been customized during installation):
+
+```bash
+CLEARML_NAMESPACE=clearml
+```
+
 Add CRDs following Helm chart README:
 
 ```bash
@@ -147,7 +155,7 @@ Upgrade chart accordingly with helm upgrade command.
 Scale down ClearML services:
 
 ```bash
-kubectl -n <clearml namespace> scale deployment -l app.kubernetes.io/name=clearml --replicas=0
+kubectl -n $CLEARML_NAMESPACE scale deployment -l app.kubernetes.io/name=clearml --replicas=0
 ```
 
 **2.2 Deploy Migration Pod**
@@ -176,7 +184,7 @@ spec:
 Deploy and access the migration pod:
 
 ```bash
-kubectl -n <clearml namespace> apply -f mongodb-migrate.yaml
+kubectl -n $CLEARML_NAMESPACE apply -f mongodb-migrate.yaml
 ```
 
 **2.3 Export Data from Source Database**
@@ -184,14 +192,14 @@ kubectl -n <clearml namespace> apply -f mongodb-migrate.yaml
 Dump data from Bitnami MongoDB:
 
 ```bash
-MONGO_CONNECTION_STRING=$(kubectl get deploy -n <clearml namespace> -o jsonpath='{.items[*].spec.template.spec.containers[?(@.name=="clearml-apiserver")].env[?(@.name=="CLEARML_MONGODB_SERVICE_CONNECTION_STRING")].value}{"\n"}')
-kubectl -n <clearml namespace> exec -it mongodb-migrate -- mongodump --uri="$MONGO_CONNECTION_STRING" --archive=/dump.archive --gzip
+MONGO_CONNECTION_STRING=$(kubectl get deploy -n $CLEARML_NAMESPACE -o jsonpath='{.items[*].spec.template.spec.containers[?(@.name=="clearml-apiserver")].env[?(@.name=="CLEARML_MONGODB_SERVICE_CONNECTION_STRING")].value}{"\n"}')
+kubectl -n $CLEARML_NAMESPACE exec -it mongodb-migrate -- mongodump --uri="$MONGO_CONNECTION_STRING" --archive=/dump.archive --gzip
 ```
 
 Copy the dump to a local system so there's a further local copy just in case:
 
 ```bash
-kubectl -n <clearml namespace> cp mongodb-migrate:/dump.archive /tmp/dump.archive
+kubectl -n $CLEARML_NAMESPACE cp mongodb-migrate:/dump.archive /tmp/dump.archive
 ```
 
 **2.4 Import Data to Target Database**
@@ -199,7 +207,7 @@ kubectl -n <clearml namespace> cp mongodb-migrate:/dump.archive /tmp/dump.archiv
 Restore data to MCK MongoDB:
 
 ```bash
-kubectl -n <clearml namespace> exec -it mongodb-migrate -- sh -c 'mongorestore \
+kubectl -n $CLEARML_NAMESPACE exec -it mongodb-migrate -- sh -c 'mongorestore \
   --uri="$CLEARML_MONGODB_SERVICE_CONNECTION_STRING" \
   --archive=/dump.archive \
   --gzip \
@@ -243,7 +251,7 @@ Upgrade chart accordingly with helm upgrade command.
 Remove the migration pod:
 
 ```bash
-kubectl -n <clearml namespace> delete -f mongodb-migrate.yaml
+kubectl -n $CLEARML_NAMESPACE delete -f mongodb-migrate.yaml
 
 ## Upgrades/ Values upgrades
 
