@@ -426,7 +426,7 @@ mckMongodb:
     createResource: true
     resource:
       name: mongodb-replica-set
-      version: 7.0.28
+      version: 7.0.34
       members: 1
       users:
       # At least ONE user MUST be defined.
