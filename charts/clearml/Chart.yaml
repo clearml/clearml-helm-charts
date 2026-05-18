@@ -13,8 +13,8 @@ sources:
 maintainers:
   - name: filippo-clearml
     url: https://github.com/filippo-clearml
-  - name: vm-clearml
-    url: https://github.com/vm-clearml
+  - name: ummon-v
+    url: https://github.com/ummon-v
 keywords:
   - clearml
   - "machine learning"

@@ -11,7 +11,7 @@ MLOps platform
 | Name | Email | Url |
 | ---- | ------ | --- |
 | filippo-clearml |  | <https://github.com/filippo-clearml> |
-| vm-clearml |  | <https://github.com/vm-clearml> |
+| ummon-v |  | <https://github.com/ummon-v> |
 
 ## Introduction
 
