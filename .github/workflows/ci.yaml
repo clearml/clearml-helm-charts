@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Run helm-docs
@@ -30,17 +30,15 @@ jobs:
           - v1.35.0
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Create kind ${{ matrix.k8s }} cluster
-        uses: helm/kind-action@v1.14.0
+        uses: helm/kind-action@v1
         with:
           node_image: kindest/node:${{ matrix.k8s }}
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.8.0
-        with:
-          version: v3.14.0
+        uses: helm/chart-testing-action@v2
       - name: Add bitnami repo
         run: helm repo add bitnami https://charts.bitnami.com/bitnami
       - name: Add elastic repo
