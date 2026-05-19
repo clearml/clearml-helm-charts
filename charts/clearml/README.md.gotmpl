@@ -93,7 +93,7 @@ In a production environment it's suggested to install an ingress controller and 
 During ClearML deployment enable `ingress` section of chart values.
 This will create 3 ingress rules:
 
-* `app.<your domain name>` 
+* `app.<your domain name>`
 * `files.<your domain name>`
 * `api.<your domain name>`
 
@@ -112,8 +112,6 @@ helm install clearml clearml/clearml -f values-production.yaml
 Starting chart version `7.15.0`, a migration path for database dependencies is available to help users transition to new bundled dependencies.
 
 **IMPORTANT**: This procedure is required to prepare for future Helm chart updates that may not be possible if the migration is not completed. The migration ensures data consistency and compatibility with upcoming chart versions.
-
-For detailed migration instructions, see the [Kubernetes Dependencies Migration Guide](k8s_dependencies_migration.md).
 
 ### Procedure
 
@@ -278,10 +276,10 @@ Before issuing helm upgrade:
 ## Additional Configuration for ClearML Server
 
 You can also configure the **clearml-server** for:
- 
+
 * fixed users (users with credentials)
 * non-responsive experiment watchdog settings
- 
+
 For detailed instructions, see the [Optional Configuration](https://github.com/clearml/clearml-server#optional-configuration) section in the **clearml-server** repository README file.
 
 {{ template "chart.sourcesSection" . }}

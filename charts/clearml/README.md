@@ -117,8 +117,6 @@ Starting chart version `7.15.0`, a migration path for database dependencies is a
 
 **IMPORTANT**: This procedure is required to prepare for future Helm chart updates that may not be possible if the migration is not completed. The migration ensures data consistency and compatibility with upcoming chart versions.
 
-For detailed migration instructions, see the [Kubernetes Dependencies Migration Guide](k8s_dependencies_migration.md).
-
 ### Procedure
 
 #### Phase 1: Enable MCK MongoDB Deployment
