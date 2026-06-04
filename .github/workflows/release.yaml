@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - name: Add bitnami repo
         run: helm repo add bitnami https://charts.bitnami.com/bitnami
       - name: Add mongodb repo
