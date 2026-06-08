@@ -383,9 +383,9 @@ externalServices:
   # -- Existing MongoDB connection string for AUTH to use if mongodb.enabled is false (example in values.yaml)
   mongodbConnectionStringBackend: "mongodb://mongodb_hostnamehostname:27017/backend"
   # -- Existing Redis Hostname to use if dragonfly.enabled is false (example in values.yaml)
-  dragonflyHost: "dragonfly_hostname"
+  redisHost: "dragonfly_hostname"
   # -- Existing Redis Port to use if dragonfly.enabled is false
-  dragonflyPort: 6379
+  redisPort: 6379
 
 # -- Configuration from https://github.com/dragonflydb/dragonfly/blob/main/contrib/charts/dragonfly/values.yaml
 dragonfly:

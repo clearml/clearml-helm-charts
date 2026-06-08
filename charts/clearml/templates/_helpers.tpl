@@ -251,7 +251,7 @@ Dragonfly Service name
 {{- if .Values.dragonfly.enabled }}
 {{- include "dragonfly.fullname" .Subcharts.dragonfly }}
 {{- else }}
-{{- .Values.externalServices.dragonflyHost }}
+{{- .Values.externalServices.redisHost }}
 {{- end }}
 {{- end }}
 
@@ -262,7 +262,7 @@ Dragonfly Service port
 {{- if .Values.dragonfly.enabled }}
 {{- .Values.dragonfly.service.port }}
 {{- else }}
-{{- .Values.externalServices.dragonflyPort }}
+{{- .Values.externalServices.redisPort }}
 {{- end }}
 {{- end }}
 
