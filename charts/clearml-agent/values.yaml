@@ -81,7 +81,7 @@ agentk8sglue:
   webServerUrlReference: "https://app.clear.ml"
 
   # -- default container image for ClearML Task pod
-  defaultContainerImage: ubuntu:18.04
+  defaultContainerImage: ubuntu:24.04
   # -- ClearML queue this agent will consume. Multiple queues can be specified with the following format: queue1,queue2,queue3
   queue: default
   # -- if ClearML queue does not exist, it will be create it if the value is set to true
