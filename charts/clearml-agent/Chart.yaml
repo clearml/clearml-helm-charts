@@ -20,5 +20,5 @@ keywords:
   - "task agent"
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "Dropped kubernetes max compatible version"
+    - kind: security
+      description: "Bump defaultContainerImage from ubuntu:18.04 (EOL) to ubuntu:24.04"
