@@ -8,9 +8,14 @@ data:
     metadata:
       namespace: {{ .Release.Namespace }}
       labels:
-      {{- toYaml $.Values.agentk8sglue.basePodTemplate.labels | nindent 8 }}
+        app.kubernetes.io/instance: {{ include "clearmlAgent.fullname" $ }}
+      {{- with $.Values.agentk8sglue.basePodTemplate.labels }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $.Values.agentk8sglue.basePodTemplate.annotations }}
       annotations:
-      {{- toYaml $.Values.agentk8sglue.basePodTemplate.annotations | nindent 8 }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
       {{- if .Values.imageCredentials.enabled }}
       imagePullSecrets:
@@ -87,7 +92,7 @@ data:
     apiVersion: v1
     kind: Service
     metadata:
-      name: clearml-session-{{ . }}
+      name: {{ include "clearmlAgent.fullname" $ }}-session-{{ . }}
       labels:
         {{- include "clearmlAgent.labels" $ | nindent 8 }}
       {{- with $.Values.sessions.svcAnnotations }}
@@ -109,5 +114,6 @@ data:
           {{- end }}
       selector:
         ai.allegro.agent.serial: pod-{{ . }}
+        app.kubernetes.io/instance: {{ include "clearmlAgent.fullname" $ }}
 {{- end }}
 {{- end }}

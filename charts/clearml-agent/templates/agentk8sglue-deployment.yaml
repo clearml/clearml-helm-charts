@@ -63,6 +63,31 @@ spec:
             - -c
             - >
               export PATH=$PATH:$HOME/bin;
+              {{- if and (.Values.sessions.portModeEnabled) (.Values.tcpProxy.enabled) }}
+              export GATEWAY_ADDRESS="{{ .Values.sessions.externalIP }}";
+              if [ "$GATEWAY_ADDRESS" = "0.0.0.0" ] || [ -z "$GATEWAY_ADDRESS" ]; then
+                SA_TOKEN="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)";
+                API_HOST="${KUBERNETES_SERVICE_HOST}";
+                API_PORT="${KUBERNETES_SERVICE_PORT}";
+                NAMESPACE="{{ .Release.Namespace }}";
+                SVC_NAME="{{ include "clearmlAgent.fullname" . }}-tcp-proxy";
+                for i in $(seq 1 60); do
+                  RESP="$(curl -sSk --header "Authorization: Bearer ${SA_TOKEN}" --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt "https://${API_HOST}:${API_PORT}/api/v1/namespaces/${NAMESPACE}/services/${SVC_NAME}")";
+                  IP_OR_HOST="$(printf '%s' "$RESP" | grep -o '"hostname"[[:space:]]*:[[:space:]]*"[^\"]*"' | head -n1 | sed 's/.*"\([^"\n]*\)"/\1/')";
+                  if [ -z "$IP_OR_HOST" ]; then
+                    IP_OR_HOST="$(printf '%s' "$RESP" | grep -o '"ip"[[:space:]]*:[[:space:]]*"[^\"]*"' | head -n1 | sed 's/.*"\([^"\n]*\)"/\1/')";
+                  fi;
+                  if [ -n "$IP_OR_HOST" ]; then
+                    export GATEWAY_ADDRESS="$IP_OR_HOST";
+                    break;
+                  fi;
+                  sleep 5;
+                done;
+              fi;
+              if [ -n "$GATEWAY_ADDRESS" ]; then
+                export K8S_GLUE_EXTRA_ARGS="${K8S_GLUE_EXTRA_ARGS} --gateway-address ${GATEWAY_ADDRESS}";
+              fi;
+              {{- end }}
               source /root/.bashrc && /root/entrypoint.sh
           volumeMounts:
             - name: {{ include "clearmlAgent.fullname" . }}-pt

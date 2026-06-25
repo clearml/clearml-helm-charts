@@ -2,7 +2,7 @@ apiVersion: v2
 name: clearml-agent
 description: MLOps platform Task running agent
 type: application
-version: "5.3.3"
+version: "5.4.0"
 appVersion: "1.24"
 kubeVersion: ">= 1.21.0-0"
 home: https://clear.ml
@@ -20,5 +20,7 @@ keywords:
   - "task agent"
 annotations:
   artifacthub.io/changes: |
+    - kind: added
+      description: "Optional TCP proxy (single LoadBalancer) for sessions ports-mode"
     - kind: changed
-      description: "Dropped kubernetes max compatible version"
+      description: "Ports-mode supports multiple agents: unique session Service names (<fullname>-session-N) and selector labels"

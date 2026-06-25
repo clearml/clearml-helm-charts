@@ -238,3 +238,18 @@ sessions:
   startingPort: 30000
   # -- maximum number of NodePorts exposed
   maxServices: 20
+
+# -- TCP proxy to expose a single LoadBalancer for all session ports (ports-mode only)
+tcpProxy:
+  # -- Enable TCP proxy (requires sessions.portModeEnabled=true)
+  enabled: false
+  # -- TCP proxy image
+  image:
+    repository: nginx
+    tag: 1.29-alpine
+  # -- Service type for the TCP proxy
+  svcType: LoadBalancer
+  # -- Annotations for the proxy Service
+  svcAnnotations: {}
+  # -- Resources for the proxy pod
+  resources: {}
