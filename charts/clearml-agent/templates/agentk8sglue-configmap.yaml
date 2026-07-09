@@ -30,6 +30,7 @@ data:
       priorityClassName: {{ .Values.agentk8sglue.basePodTemplate.priorityClassName }}
       initContainers:
         {{- toYaml .Values.agentk8sglue.basePodTemplate.initContainers | nindent 8 }}
+      runtimeClassName: {{ .Values.agentk8sglue.basePodTemplate.runtimeClassName }}
       containers:
       - resources:
           {{- toYaml .Values.agentk8sglue.basePodTemplate.resources | nindent 10 }}

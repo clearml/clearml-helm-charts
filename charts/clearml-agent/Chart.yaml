@@ -20,5 +20,7 @@ keywords:
   - "task agent"
 annotations:
   artifacthub.io/changes: |
+    - kind: added
+      description: "support for runtimeClassName"
     - kind: changed
       description: "Dropped kubernetes max compatible version"
