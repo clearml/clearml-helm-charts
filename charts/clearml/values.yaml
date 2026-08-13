@@ -85,11 +85,11 @@ apiserver:
   initContainers:
     resources:
       requests:
-        cpu: 10m
+        cpu: 100m
         memory: 64Mi
       limits:
-        cpu: 10m
-        memory: 64Mi
+        cpu: 500m
+        memory: 128Mi
   # -- Ingress configuration for Api Server component
   ingress:
     # -- Enable/Disable ingress
@@ -219,11 +219,11 @@ fileserver:
   initContainers:
     resources:
       requests:
-        cpu: 10m
+        cpu: 100m
         memory: 64Mi
       limits:
-        cpu: 10m
-        memory: 64Mi
+        cpu: 500m
+        memory: 128Mi
   # -- Ingress configuration for File Server component
   ingress:
     # -- Enable/Disable ingress
@@ -317,11 +317,11 @@ webserver:
   initContainers:
     resources:
       requests:
-        cpu: 10m
+        cpu: 100m
         memory: 64Mi
       limits:
-        cpu: 10m
-        memory: 64Mi
+        cpu: 500m
+        memory: 128Mi
   # -- Ingress configuration for Web Server component
   ingress:
     # -- Enable/Disable ingress
